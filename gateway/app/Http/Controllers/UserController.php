@@ -36,4 +36,11 @@ class UserController extends Controller
             'response' => 'Usuario autenticado correctamente'
         ]);
     }
+
+    public function logout(Request $request){
+        // Lógica para cerrar sesión de un usuario
+        $request->user()->currentAccessToken()->delete();
+
+        return response()->json(['response' => 'Sesión cerrada correctamente']);
+    }
 }
