@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth; // Clase utilizada para generar token
+use Illuminate\Support\Facades\Hash; // Clase utilizada para encriptar la contraseña
+
 use App\Models\User;
 
 class UserController extends Controller
@@ -13,4 +16,24 @@ class UserController extends Controller
 
         return response()->json($user, 201);
     }   
+
+    public function login(Request $request){
+        // Lógica para autenticar un usuario
+        $user = User::where('email', $request->email)->first();
+
+        if(!$user){
+            return response()->json(['response' => 'Usuario no encontrado'], 404);
+        }
+
+        if (!Hash::check($request->password, $user->password)) {
+            return response()->json(['error' => 'Contraseña incorrecta'], 401);
+        }
+
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+        return response()->json([
+            'token' => $token,
+            'response' => 'Usuario autenticado correctamente'
+        ]);
+    }
 }
