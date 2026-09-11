@@ -6,10 +6,10 @@ class AppError(Exception):
 
 
 class NotFoundError(AppError):
-    def __init__(self, message="Recurso no encontrado"):
+    def __init__(self, message="Resource not found"):
         super().__init__(message, status_code=404)
 
 
 class ConflictError(AppError):
-    def __init__(self, message="Conflicto con un recurso existente"):
+    def __init__(self, message="Conflict with an existing resource"):
         super().__init__(message, status_code=409)

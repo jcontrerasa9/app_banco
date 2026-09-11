@@ -1,3 +1,3 @@
-from services import cuenta_service
+from services import account_service
 
-__all__ = ["cuenta_service"]
+__all__ = ["account_service"]

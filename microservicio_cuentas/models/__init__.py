@@ -1,3 +1,3 @@
-from models.cuenta import Cuenta
+from models.account import Account
 
-__all__ = ["Cuenta"]
+__all__ = ["Account"]

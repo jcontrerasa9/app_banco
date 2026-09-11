@@ -3,7 +3,7 @@ from flask import Flask, jsonify, request
 from config import Config
 from errors import AppError
 from extensions import db, migrate
-from services import cuenta_service
+from services import account_service
 
 
 def create_app(config_class=Config):
@@ -26,26 +26,26 @@ def register_routes(app):
     def index():
         return {"status": "ok", "message": "API Flask funcionando"}
 
-    @app.get("/api/cuentas")
-    def list_cuentas():
-        return jsonify(cuenta_service.list_cuentas())
+    @app.get("/api/accounts")
+    def list_accounts():
+        return jsonify(account_service.list_accounts())
 
-    @app.get("/api/cuentas/<int:cuenta_id>")
-    def get_cuenta(cuenta_id):
-        return jsonify(cuenta_service.get_cuenta(cuenta_id))
+    @app.get("/api/accounts/<int:account_id>")
+    def get_account(account_id):
+        return jsonify(account_service.get_account(account_id))
 
-    @app.post("/api/cuentas")
-    def create_cuenta():
-        data, status = cuenta_service.create_cuenta(request.get_json(silent=True))
+    @app.post("/api/accounts")
+    def create_account():
+        data, status = account_service.create_account(request.get_json(silent=True))
         return jsonify(data), status
 
-    @app.put("/api/cuentas/<int:cuenta_id>")
-    def update_cuenta(cuenta_id):
-        return jsonify(cuenta_service.update_cuenta(cuenta_id, request.get_json(silent=True)))
+    @app.put("/api/accounts/<int:account_id>")
+    def update_account(account_id):
+        return jsonify(account_service.update_account(account_id, request.get_json(silent=True)))
 
-    @app.delete("/api/cuentas/<int:cuenta_id>")
-    def delete_cuenta(cuenta_id):
-        cuenta_service.delete_cuenta(cuenta_id)
+    @app.delete("/api/accounts/<int:account_id>")
+    def delete_account(account_id):
+        account_service.delete_account(account_id)
         return "", 204
 
 
@@ -56,7 +56,7 @@ def register_error_handlers(app):
 
     @app.errorhandler(404)
     def handle_not_found(_error):
-        return jsonify({"error": "Recurso no encontrado"}), 404
+        return jsonify({"error": "Resource not found"}), 404
 
     @app.errorhandler(500)
     def handle_internal_error(_error):
