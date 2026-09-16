@@ -10,4 +10,9 @@ Route::post('/register', [UserController::class, 'register']);
 Route::post('/login', [UserController::class, 'login']);
 Route::post('/logout', [UserController::class,'logout'])->middleware('auth:sanctum');
 
-Route::post('/example', [AccountController::class,'example']);
+Route::post('/example', [AccountController::class, 'example']);
+Route::get('/accounts', [AccountController::class, 'index']);
+Route::get('/accounts/{account}', [AccountController::class, 'show']);
+Route::post('/accounts', [AccountController::class, 'store']);
+Route::put('/accounts/{account}', [AccountController::class, 'update']);
+Route::delete('/accounts/{account}', [AccountController::class, 'destroy']);
