@@ -22,6 +22,16 @@ def create_app(config_class=Config):
 
 
 def register_routes(app):
+
+    @app.post("/example")
+    def example():
+        data = request.json
+
+        return jsonify({
+            "response": "Respuesta de microservicio de cuentas en Flask",
+            "dato_recibido": data
+        })
+
     @app.get("/")
     def index():
         return {"status": "ok", "message": "API Flask funcionando"}
